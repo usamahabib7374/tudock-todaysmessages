@@ -1,0 +1,17 @@
+<?php
+$_helper = $this->helper(Tudock\TodaysMessage\Helper\TodaysMessage::class);
+$_product = $block->getProduct();
+
+if (!$_product instanceof \Magento\Catalog\Model\Product) {
+    return;
+}
+$categories = $_product->getCategoryIds();
+$messages = $_helper->getTodaysMessageForProduct($_product->getId(), $categories);
+?>
+
+<?php if (count($messages) > 0): ?>
+    <div class="product attribute">
+        <strong class="type">Todays Message</strong>
+        <div class="value"><?= $messages[rand(1, count($messages)) - 1]['message'] ?></div>
+    </div>
+<?php endif; ?>
